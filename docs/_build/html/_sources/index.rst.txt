@@ -16,7 +16,7 @@ Contents
    :caption: Contents:
 
    legacy_pipeline
-
+   
 Indices and tables
 ==================
 
