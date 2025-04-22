@@ -64,7 +64,7 @@ Use the following docker compose template to initiate container
     :align: center
     :alt: Successful deployment of Illumina CNV container
 
-
+----
 
 **Torrent Onco** - `v3.2.9 (1a5b490) <https://bitbucket.org/actgenomics/actcnv_onco2m7_ldt/src/v3.2.9/>`_
 
@@ -77,7 +77,7 @@ Use the following docker compose template to initiate container
     :align: center
     :alt: Successful deployment of ACTOnco CNV container
 
-
+----
 
 **Torrent DrugV4** - `v3.0.9 (5ef3649) <https://bitbucket.org/actgenomics/actcnv_drug_ldt/src/v3.0.9/>`_
 
@@ -89,7 +89,6 @@ Use the following docker compose template to initiate container
     :width: 600px
     :align: center
     :alt: Successful deployment of ACTDrugV4 CNV container
-
 
 
 -------------------
@@ -107,13 +106,12 @@ All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in t
 
     python3 /tools/cnv_app/cnv_pipeline/cnv_pipeline.py -i [RunBarcode] --panel [panelID]
 
-
 .. image:: _img/run_ilmn.png
     :width: 600px
     :align: center
     :alt: Execute Illumina cnv_pipeline
 
-
+----
 
 - Torrent
 
@@ -123,25 +121,23 @@ For Torrent pipelines, if panel ID is not provided, it will be inferred via the 
     
     python /home/CNV/script/ACTOnco_CNV_Onco2M7.py -i [RunBarcode] -b FFPE -p Onco2M7pv6
 
-
 .. image:: _img/run_onco.png
     :width: 600px
     :align: center
     :alt: Execute ACTOnco cnv_pipeline
 
-
+----
 
 .. code-block:: console
     
     python /home/CNV/script/ACTDrugV4_CNV_PA027M1.py -i [RunBarcode] -b FFPE -p PA027M1
-
 
 .. image:: _img/run_drugv4.png
     :width: 600px
     :align: center
     :alt: Execute ACTDrugV4 cnv_pipeline
 
-
+----
 
 -----------------
 Troubleshoot
@@ -157,7 +153,6 @@ Server needs to contain necessary DNS for API in /etc/hosts
     :width: 600px
     :align: center
     :alt: output of /etc/hosts
-
 
 
 Otherwise add the following to docker-compose
@@ -183,13 +178,12 @@ The mock directory of Lv1 and Lv2 contained test data for pipeline execution
     :align: center
     :alt: Volumes for Lv1 and Lv2 highlighted in YAML
 
+----
 
-    
 Image building
 ~~~~~~~~~~~~~~~~~~~~
 
 When building Illumina CNV container, it needs to contain an entry point as it works as a component in the entire pipeline.
-
 
 
 The dockerfile to use when building production container: 
@@ -198,20 +192,18 @@ The dockerfile to use when building production container:
     
     illumina_cnv_integration/cnv_df/docker_swarm/Dockerfile
 
-
 .. image:: _img/build_swarm.png
     :width: 600px
     :align: center
     :alt: Correct startup message for Illumina container
 
-
+----
 
 For development and local testing, without crontab entrypoint:
 
 .. code-block:: console
 
     illumina_cnv_integration/cnv_df/Dockerfile
-
 
 
 Test new data / Debug sample run
@@ -226,7 +218,7 @@ Generate text file with 1-column containing sample UUID.  Example UUID : AANB01_
     :align: center
     :alt: Example of samplelist file
 
-
+----
 
 Use custom script to generate mock folder. This directory will contain a physical copy of Lv1 Lv2 files with samples, which can be mounted to testing container
 
