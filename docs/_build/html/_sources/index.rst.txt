@@ -3,13 +3,23 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-CNV handover documentation
-==========================
+CNV handover Documentation
+========================
 
-This is the handover readthedoc for CNV related projects
+This is the documentation for CNV projects managed by Tom
 
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
    legacy_pipeline
+   
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

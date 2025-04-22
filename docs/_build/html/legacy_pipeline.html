@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legacy CNV pipeline handover document &mdash; cnv_handover 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=959672f5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="CNV handover Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            cnv_handover
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Legacy CNV pipeline handover document</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#files">Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bitbucket-repos">Bitbucket Repos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-images">Docker Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment">Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshoot">Troubleshoot</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#server-dns-configuration">Server DNS Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mount-volumes-exist">Mount volumes exist</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#image-building">Image building</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-new-data-debug-sample-run">Test new data / Debug sample run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cnv_handover</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Legacy CNV pipeline handover document</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/legacy_pipeline.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="legacy-cnv-pipeline-handover-document">
+<h1>Legacy CNV pipeline handover document<a class="headerlink" href="#legacy-cnv-pipeline-handover-document" title="Link to this heading"></a></h1>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading"></a></h2>
+<p>Provide a tutorial of how to deploy and troubleshoot during maintenance and testing of Illumina and Torrent legacy CNV pipeline</p>
+</section>
+<section id="files">
+<h2>Files<a class="headerlink" href="#files" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>YAML</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/mnt/home/tomlin/dockercompose/</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Testing data</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/mnt/BI3/Team_workdir/tom_workdir/Validation_input/</span>
+</pre></div>
+</div>
+<section id="bitbucket-repos">
+<h3>Bitbucket Repos<a class="headerlink" href="#bitbucket-repos" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Illumina</p>
+<p><a class="reference external" href="https://bitbucket.org/actgenomics/illumina_cnv_integration/src">Illumina CNV Integration</a></p>
+</li>
+<li><p>Torrent</p>
+<p><a class="reference external" href="https://bitbucket.org/actgenomics/actcnv_onco2m7_ldt/src/master/">ACTOnco2M7</a></p>
+<p><a class="reference external" href="https://bitbucket.org/actgenomics/actcnv_drug_ldt/src/master/">ACTDrugV4</a></p>
+</li>
+</ul>
+</section>
+<section id="docker-images">
+<h3>Docker Images<a class="headerlink" href="#docker-images" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general">ilmn_cnv</a></p>
+<p><a class="reference external" href="https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general">ldt_torrent_actcnv_onco</a></p>
+<p><a class="reference external" href="https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general">ldt_torrent_actcnv_drug</a></p>
+</section>
+<section id="deployment">
+<h3>Deployment<a class="headerlink" href="#deployment" title="Link to this heading"></a></h3>
+<p>Use the following docker compose template to initiate container</p>
+<p><strong>Illumina</strong></p>
+<p>Latest version = v1.11.3 (54022ed)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose -f /mnt/home/tomlin/dockercompose/ilmn_testing.yml up -d</span>
+</pre></div>
+</div>
+<p>Example of successful deployment</p>
+<a class="reference internal image-reference" href="_images/deployment_ilmn.png"><img alt="Deployment of Illumina CNV container" class="align-center" src="_images/deployment_ilmn.png" style="width: 600px;" />
+</a>
+<p><strong>Torrent</strong></p>
+<p>Latest version Onco = v3.2.9 (1a5b490)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose -f /mnt/home/tomlin/dockercompose/ACTOnco_testing.yml -d</span>
+</pre></div>
+</div>
+<p>Latest version Drugv4 = v3.0.9 (5ef3649)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker-compose -f /mnt/home/tomlin/dockercompose/ACTDrugV4_testing.yml</span>
+</pre></div>
+</div>
+<p>Onco
+DrugV4</p>
+</section>
+<section id="pipeline-execution">
+<h3>Pipeline execution<a class="headerlink" href="#pipeline-execution" title="Link to this heading"></a></h3>
+<p>When container has been deployed, the following command triggers a job execution.</p>
+<ul class="simple">
+<li><p>Illumina</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 /tools/cnv_app/cnv_pipeline/cnv_pipeline.py -i [RunBarcode] --panel [panelID]</span>
+</pre></div>
+</div>
+<p>Example output</p>
+<p>All four biomarker + plot module should trigger.</p>
+<p>Data output in respective Lv2 directory</p>
+<ul class="simple">
+<li><p>Torrent</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python /home/CNV/script/ACTOnco_CNV_Onco2M7.py -i [RunBarcode] -b FFPE -p Onco2M7pv6</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python /home/CNV/script/ACTDrugV4_CNV_PA027M1.py -i [RunBarcode] -b FFPE -p PA027M1</span>
+</pre></div>
+</div>
+<p>If panel_ID not given, it is detected via the all_seq_list</p>
+</section>
+<section id="troubleshoot">
+<h3>Troubleshoot<a class="headerlink" href="#troubleshoot" title="Link to this heading"></a></h3>
+<section id="server-dns-configuration">
+<h4>Server DNS Configuration<a class="headerlink" href="#server-dns-configuration" title="Link to this heading"></a></h4>
+<p>Server needs to contain necessary DNS for API in /etc/hosts</p>
+<p>Otherwise add the following to docker-compose</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">extra_hosts</span><span class="p">:</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;actg-sso-back.actgenomics.com=192.168.6.8&quot;</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;actg-sso.actgenomics.com=192.168.6.8&quot;</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;lm-back.actgenomics.com=192.168.6.8&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="mount-volumes-exist">
+<h4>Mount volumes exist<a class="headerlink" href="#mount-volumes-exist" title="Link to this heading"></a></h4>
+<p>The mock directory of Lv1 and Lv2 contained test data for pipeline execution</p>
+</section>
+<section id="image-building">
+<h4>Image building<a class="headerlink" href="#image-building" title="Link to this heading"></a></h4>
+<p>When building Illumina CNV container, it needs to contain an entry point as it works as a component in the entire pipeline.</p>
+<p>The dockerfile to use when building production container:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">illumina_cnv_integration/cnv_df/docker_swarm/Dockerfile</span>
+</pre></div>
+</div>
+<p>For development and local testing, without crontab entrypoint:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">illumina_cnv_integration/cnv_df/Dockerfile</span>
+</pre></div>
+</div>
+</section>
+<section id="test-new-data-debug-sample-run">
+<h4>Test new data / Debug sample run<a class="headerlink" href="#test-new-data-debug-sample-run" title="Link to this heading"></a></h4>
+<p>When new data is required for testing, a mock directory can be created providing the sample data is already in production volumes</p>
+<p>Generate text file with 1-column containing sample UUID</p>
+<p>Example UUID : AANB01_502_IDX703503_AA-25-10005</p>
+<p>Use custom script to generate mock folder</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 /mnt/home/tomlin/dev_script/file_files.py \</span>
+<span class="go">    -f1 [Lv1 DIR] \</span>
+<span class="go">    -f2 [Lv2 DIR] \</span>
+<span class="go">    -i [File containing list of UUIDs] \</span>
+<span class="go">    -o [Output DIR]</span>
+</pre></div>
+</div>
+<p>This directory will contain a physical copy of Lv1 Lv2 files with samples, which can be mounted to testing container</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="CNV handover Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Tom Lin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
