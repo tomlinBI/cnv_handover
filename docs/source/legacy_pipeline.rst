@@ -90,6 +90,7 @@ Use the following docker compose template to initiate container
     :align: center
     :alt: Successful deployment of ACTDrugV4 CNV container
 
+----
 
 -------------------
 Pipeline execution
@@ -98,9 +99,7 @@ Pipeline execution
 
 When container has been deployed, use the following command triggers a job execution.
 
-- Illumina
-
-All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in the respective Lv2 directory
+- Illumina: All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in the respective Lv2 directory
 
 .. code-block:: console
 
@@ -113,9 +112,7 @@ All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in t
 
 ----
 
-- Torrent
-
-For Torrent pipelines, if panel ID is not provided, it will be inferred via the all_seq_list
+- Torrent: For Torrent pipelines, if panel ID is not provided, it will be inferred via the all_seq_list
 
 .. code-block:: console
     

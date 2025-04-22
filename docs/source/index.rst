@@ -13,13 +13,6 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    legacy_pipeline
    
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
