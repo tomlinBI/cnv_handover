@@ -1,5 +1,5 @@
 ======================================
-Legacy CNV pipeline handover document
+Legacy CNV pipeline handover
 ======================================
 
 -----------------
@@ -26,72 +26,70 @@ Files
     /mnt/BI3/Team_workdir/tom_workdir/Validation_input/
 
 
+-----------------
 Bitbucket Repos
 -----------------
 
-- Illumina
+- `Illumina CNV Integration <https://bitbucket.org/actgenomics/illumina_cnv_integration/src>`_
 
-  `Illumina CNV Integration <https://bitbucket.org/actgenomics/illumina_cnv_integration/src>`_
+- `Torrent ACTOnco2M7 <https://bitbucket.org/actgenomics/actcnv_onco2m7_ldt/src/master/>`_
 
-- Torrent
-
-  `ACTOnco2M7 <https://bitbucket.org/actgenomics/actcnv_onco2m7_ldt/src/master/>`_
-
-  `ACTDrugV4 <https://bitbucket.org/actgenomics/actcnv_drug_ldt/src/master/>`_
+- `Torrent ACTDrugV4 <https://bitbucket.org/actgenomics/actcnv_drug_ldt/src/master/>`_
 
 
+-----------------
 Docker Images
 -----------------
-`ilmn_cnv <https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general>`_
+- `ilmn_cnv <https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general>`_
 
-`ldt_torrent_actcnv_onco <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general>`_
+- `ldt_torrent_actcnv_onco <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general>`_
 
-`ldt_torrent_actcnv_drug <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general>`_
+- `ldt_torrent_actcnv_drug <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general>`_
 
 
+-----------------
 Deployment
 -----------------
 Use the following docker compose template to initiate container
 
 
-**Illumina** 
-
-Latest version = v1.11.3 (54022ed)
+**Illumina** - `v1.11.3 (54022ed) <https://bitbucket.org/actgenomics/illumina_cnv_integration/src/v1.11.3/>`_ 
 
 .. code-block:: console
 
     docker-compose -f /mnt/home/tomlin/dockercompose/ilmn_testing.yml up -d
 
-
-Example of successful deployment
-
 .. image:: _img/deployment_ilmn.png
     :width: 600px
     :align: center
-    :alt: Deployment of Illumina CNV container
+    :alt: Successful deployment of Illumina CNV container
 
 
-**Torrent**
-
-Latest version Onco = v3.2.9 (1a5b490)
+**Torrent Onco** - `v3.2.9 (1a5b490) <https://bitbucket.org/actgenomics/actcnv_onco2m7_ldt/src/v3.2.9/>`_
 
 .. code-block:: console
 
     docker-compose -f /mnt/home/tomlin/dockercompose/ACTOnco_testing.yml -d
 
-Latest version Drugv4 = v3.0.9 (5ef3649)
+.. image:: _img/deployment_onco.png
+    :width: 600px
+    :align: center
+    :alt: Successful deployment of ACTOnco CNV container
+
+
+**Torrent DrugV4** - `v3.0.9 (5ef3649) <https://bitbucket.org/actgenomics/actcnv_drug_ldt/src/v3.0.9/>`_
 
 .. code-block:: console
 
     docker-compose -f /mnt/home/tomlin/dockercompose/ACTDrugV4_testing.yml
 
+.. image:: _img/deployment_drugv4.png
+    :width: 600px
+    :align: center
+    :alt: Successful deployment of ACTDrugV4 CNV container
 
 
-Onco
-DrugV4
-
-
-
+-----------------
 Pipeline execution
 -------------------
 
@@ -133,7 +131,7 @@ Data output in respective Lv2 directory
 If panel_ID not given, it is detected via the all_seq_list
 
 
-
+-----------------
 Troubleshoot
 -----------------
 
