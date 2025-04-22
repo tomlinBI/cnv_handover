@@ -9,7 +9,9 @@ CNV handover documentation
 This is the handover readthedoc for CNV related projects
 
 
+Contents
+-----------------
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
    legacy_pipeline
