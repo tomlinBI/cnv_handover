@@ -29,6 +29,9 @@ These files are found in TP-FS01 storage
 - /2024SF/BIA&BI/Bioinformatics/Team/TsungHsun/Handover/Baseline automation 
 - /2024SF/BIA&BI/Bioinformatics/Team/August/[PanelRD]_BaselineBuilding 
 
+
+---
+
 ------
 Steps
 ------
@@ -89,17 +92,19 @@ The baseline building pipeline is controlled using JSON file, which list the pat
 JSON key explanation
 ~~~~~~~~~~~~~~~~~~~~~
 
+Template of JSON files are stored in the repo: `Onco2M7pv5 template <https://bitbucket.org/actgenomics/actcnv_baseline_automation/src/master/Panels/Onco2M7pv5/json/>`_
+
 The JSON keys are fixed variable to be referenced in the python pipeline.
 
-- sequencer: Name of the sequencer (for filename labelling)
-- panel: Name of the panel (for filename labelling)
-- baseline: Baseline tissue type (for filename labelling)
-- location: Deprecated (but still used in pipeline)
-- machine: ACT Internal ID for machine type (for filename labelling)
-- sample_type: Number of samples, normal, FFPE and PBMC are denoted with N, F and P, respectively.
-- ONCOCNV: the ONCOCNV script to be used for baseline building (no change)
-- rm_sample: the samples to be omitted from baseline building (usually determined after normal sample evaluation)
-- cutoff_files: contain parameters to test for different high/low amplification efficienty and amplicon CVs.
+- **sequencer**: Name of the sequencer (for filename labelling)
+- **panel**: Name of the panel (for filename labelling)
+- **baseline**: Baseline tissue type (for filename labelling)
+- **location**: Deprecated (but still used in pipeline)
+- **machine**: ACT Internal ID for machine type (for filename labelling)
+- **sample_type**: Number of samples, normal, FFPE and PBMC are denoted with N, F and P, respectively.
+- **ONCOCNV**: the ONCOCNV script to be used for baseline building (no change)
+- **rm_sample**: the samples to be omitted from baseline building (usually determined after normal sample evaluation)
+- **cutoff_files**: contain parameters to test for different high/low amplification efficienty and amplicon CVs.
 
 .. note:: 
 
@@ -112,7 +117,7 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- bed: the original BED files of amplicon inserts (all the designed amplicon for the panel)
+- **bed**: the original BED files of amplicon inserts (all the designed amplicon for the panel)
 
 .. image:: _img/bslbuild_bed.png
     :width: 600px
@@ -121,7 +126,7 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- pseudo: the pseudo gene list of the panel
+- **pseudo**: the pseudo gene list of the panel
 
 .. image:: _img/bslbuild_pseudo.png
     :width: 600px
@@ -130,7 +135,7 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- lgr_rawbed: BED files with exon information in amplicon name
+- **lgr_rawbed**: BED files with exon information in amplicon name
 
 .. image:: _img/bslbuild_lgrbed.png
     :width: 600px
@@ -139,7 +144,7 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- genelist: CNV gene list (same as GeneInfo file)
+- **genelist**: CNV gene list (same as GeneInfo file)
 
 .. image:: _img/bslbuild_genelist.png
     :width: 600px
@@ -148,7 +153,7 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- lgr_genelist: Gene list but with exon level info for BRCA1/2
+- **lgr_genelist**: Gene list but with exon level info for BRCA1/2
 
 .. image:: _img/bslbuild_lgrgenelist.png
     :width: 600px
@@ -157,7 +162,7 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- cyto: cytoband file label p and q arms of chromosome for ArmCNV
+- **cyto**: cytoband file label p and q arms of chromosome for ArmCNV
 
 .. image:: _img/bslbuild_cytoband.png
     :width: 600px
@@ -166,20 +171,20 @@ The JSON keys are fixed variable to be referenced in the python pipeline.
 
 -----
 
-- cov_path: path to the directory with all the amplicon.cov.xls
-- output_path: path of the output directory
-- script_path: path of the pipeline scripts component (fixed)
-- LOH_cut: VAF range to define LOH SNPs
-- Homo_cut: VAF range to define HOM SNPs
-- Het_cut: SNP inclusion criterion -- the percentage of samples where these HET SNPs are found
-- LOH: SNP exclusion criterion -- the number of samples where these LOH SNPs are found
-- gnomeAD: percentage cutoff for gnomeAD database for SNP inclusion
-- Total_depth: Deprecated (defined by SNV pipeline)
-- Variant_counts: Deprecated (defined by SNV pipeline)
-- Strand_bias: Deprecated (defined by SNV pipeline)
-- bed (in SNPdb json): new BED files built
-- gene_info (in SNPdb json): new GeneInfo file built
-- vcf_path (in SNPdb json): directory containing the rawbackup annotation table
+- **cov_path**: path to the directory with all the amplicon.cov.xls
+- **output_path**: path of the output directory
+- **script_path**: path of the pipeline scripts component (fixed)
+- **LOH_cut**: VAF range to define LOH SNPs
+- **Homo_cut**: VAF range to define HOM SNPs
+- **Het_cut**: SNP inclusion criterion -- the percentage of samples where these HET SNPs are found
+- **LOH**: SNP exclusion criterion -- the number of samples where these LOH SNPs are found
+- **gnomeAD**: percentage cutoff for gnomeAD database for SNP inclusion
+- **Total_depth**: Deprecated (defined by SNV pipeline)
+- **Variant_counts**: Deprecated (defined by SNV pipeline)
+- **Strand_bias**: Deprecated (defined by SNV pipeline)
+- **bed (in SNPdb json)**: new BED files built
+- **gene_info (in SNPdb json)**: new GeneInfo file built
+- **vcf_path (in SNPdb json)**: directory containing the rawbackup annotation table
 
 Cutoff selection JSON
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -289,7 +294,7 @@ Evaluate Baseline
 ========================
 
 1. Rerun pipeline using new baseline on normal samples
-    - Use production pipeline (see `Legacy CNV pipeline <legacy_pipeline.rst>`_)
+    - Use production pipeline (see `Legacy CNV pipeline <https://cnv-handover.readthedocs.io/en/bsl-page/legacy_pipeline.html>`_)
     - Use Nextflow CNV pipeline - run until ONCOCNV
     - Example of preliminary baseline evaluation: `20250224 - ACTOnco2M7pv6 CNV baseline building (slide 11-12) <https://actgenomics-my.sharepoint.com/:p:/p/tomlin/ETzZA-kdkuBEoDewbhVZ2WgBkwGG8PsG1XKMsUhjhN9R9g?e=xoaETd>`_
 2. Check for actionable gens with less than 7 amplicon regions
