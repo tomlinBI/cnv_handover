@@ -28,7 +28,7 @@ These files are found in TP-FS01 storage
 
 - /2024SF/BIA&BI/Bioinformatics/Team/TsungHsun/Handover/Baseline automation 
 - /2024SF/BIA&BI/Bioinformatics/Team/August/[PanelRD]_BaselineBuilding 
-
+- `Handover meeting video <https://teams.microsoft.com/l/meetingrecap?driveId=b%21-CV1Shz5dEa-10brA_2bRX08iiL0CrNJr-n_sGXl5mzKGf7NyeitQ4Jkr2cqo3uK&driveItemId=01FKRUDFEVXI4FMWMOZ5C3B42JBNPLBRP5&sitePath=https%3A%2F%2Factgenomics-my.sharepoint.com%2F%3Av%3A%2Fp%2Ftomlin%2FEZW6OFZZjs9FsPNJC16wxf0BxEm6CaOens3zMYQnNkWo7Q&fileUrl=https%3A%2F%2Factgenomics-my.sharepoint.com%2F%3Av%3A%2Fp%2Ftomlin%2FEZW6OFZZjs9FsPNJC16wxf0BxEm6CaOens3zMYQnNkWo7Q&iCalUid=040000008200E00074C5B7101A82E008000000002476A1A788B2DB010000000000000000100000009019CED200A9EC44B3B0B80847E33E7B&threadId=19%3Ameeting_YjczZDU3ZWItZGIwNy00ZmM1LWE2MGItMzExYTdiNmViMjA2%40thread.v2&organizerId=9902ec7c-8d3f-45e0-9d85-25196f886def&tenantId=6e3eb02e-e8ca-4043-961c-492463629974&callId=9d6028e8-6e4d-40d7-be2a-bcfcdff5a253&threadType=Meeting&meetingType=Scheduled&subType=RecapSharingLink_RecapChiclet>`_
 
 ---
 
@@ -294,10 +294,27 @@ Evaluate Baseline
 ========================
 
 1. Rerun pipeline using new baseline on normal samples
+    - Example of preliminary baseline evaluation: `20250224 - ACTOnco2M7pv6 CNV baseline building (slide 11-12) <https://actgenomics-my.sharepoint.com/:p:/p/tomlin/ETzZA-kdkuBEoDewbhVZ2WgBkwGG8PsG1XKMsUhjhN9R9g?e=xoaETd>`_
     - Use production pipeline (see `Legacy CNV pipeline <https://cnv-handover.readthedocs.io/en/bsl-page/legacy_pipeline.html>`_)
     - Use Nextflow CNV pipeline - run until ONCOCNV
-    - Example of preliminary baseline evaluation: `20250224 - ACTOnco2M7pv6 CNV baseline building (slide 11-12) <https://actgenomics-my.sharepoint.com/:p:/p/tomlin/ETzZA-kdkuBEoDewbhVZ2WgBkwGG8PsG1XKMsUhjhN9R9g?e=xoaETd>`_
-2. Check for actionable gens with less than 7 amplicon regions
+
+.. code-block:: console
+
+    # run pipeline
+    nextflow run /mnt/home/tomlin/Github_repo/actg-workflows/sub-workflows/cnvOncoCNVOnly.nf \
+        -c /mnt/home/tomlin/Github_repo/actg-workflows/configs/hg19/illumina/PA037/sub-workflow/20240902_ABIE-763.json \
+        -params-file /mnt/home/tomlin/handver/oncocnv_only/oncocnv_only.params.json \
+        -entry ONCOCNVonly \
+        --publish_dir /mnt/BI1/tomlin/oncocnv_only
+
+.. image:: _img/bslbuild_cnvonly.png
+    :width: 600px
+    :align: center
+    :alt: Example of pipeline run
+
+----
+
+2. Check for actionable genes with less than 7 amplicon regions
 3. Check for occurrence of gene where copy number **IS NOT** 2 across normal samples
 
 .. code-block:: console
@@ -307,8 +324,89 @@ Evaluate Baseline
         -o [output DIR] 
 
 4. Discuss results with BIO/MIS
-    - If amplicon regions need to be included to resxue gene from gene_tag list
+    - If amplicon regions need to be included to rescue gene from gene_tag list
     - If samples needs to be omitted, rebuild baseline
 5. After normal samples and baseline are confirmed, build SNP database
 6. Evaluate baseline using RM or previously sequenced clinical samples.
 7. Pipeline performance can be evaluated using `SiaoYu's drylab-validation scripts <https://github.com/ACTGenomics/actg-drylab-validation>`_
+
+----
+
+Repo update
+========================
+
+Illumina
+~~~~~~~~~~
+
+- Move old baseline to ``illumina_cnv_integration/cnv_files/[Panel]/old_baseline``
+- Move new baseline to ``illumina_cnv_integration/cnv_files/[Panel]/baseline``
+
+.. image:: _img/bslbuild_repo1.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update
+
+----
+
+- For FFPE: Edit ``illumina_cnv_integration/cnv_files/[Panel]/baseline/conf.json`` to update the baseline filename
+- For PBMC: Edit ``illumina_cnv_integration/cnv_files/[Panel]/baseline/conf_pbmc.json`` to update the baseline filename
+
+.. image:: _img/bslbuild_repo2.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update2
+
+----
+
+- Edit system config for version labelling ``illumina_cnv_integration/setting/cnv_app/system/config.json``
+
+.. image:: _img/bslbuild_repo3.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update3
+
+----
+
+Torrent
+~~~~~~~~~~
+
+- Move old baseline files to ``[repo]/baseline/oldbaseline``
+- Move new baseline files to ``[repo]/baseline/baseline``
+
+.. image:: _img/bslbuild_repo4.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update Torrent
+
+----
+
+- Edit pipeline script with new baseline filename
+    - **Onco**
+        - ``actcnv_onco2m7_ldt/script/ACTOnco_CNV_Onco2M7.py``
+        - ``actcnv_onco2m7_ldt/script/ACTOnco_LOH_Onco2M7.py``
+        - ``actcnv_onco2m7_ldt/script/ACTOnco_Merge_Onco2M7.py``
+
+.. image:: _img/bslbuild_repo5.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update Torrent Onco
+
+----    
+
+    - **DrugV4**
+        - ``actcnv_drug_ldt/script/ACTDrugV4_CNV_PA27M1.py``
+        - ``actcnv_drug_ldt/script/ACTDrugV4_LOH_PA27M1.py``
+
+.. image:: _img/bslbuild_repo6.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update Torrent DrugV4
+
+----
+
+- Edit version_info.txt for new version gene_tag
+
+.. image:: _img/bslbuild_repo7.png
+    :width: 600px
+    :align: center
+    :alt: Example of repo update versioninfo
