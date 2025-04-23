@@ -8,6 +8,8 @@ Purpose
 
 This document demonstrate the basic understanding of running the nextflow CNV pipeline for ACTHRD
 
+----
+
 -----------------
 Repo
 -----------------
@@ -28,6 +30,8 @@ Others materials
 
 - Design document : `ACTHRD SDS CNV <https://actgenomics-my.sharepoint.com/:w:/p/tomlin/ER_4WdLkL79i9UNl_KAgPaoBLUeNBe4t8bpat7Ew21YPSA?e=KKfSnb>`_
 - Basic CNV pipeline concept : `RD and TT team traning materials <https://actgenomics-my.sharepoint.com/:p:/p/tomlin/EcTWI-KEp3NZjLpvSCSIb5MBff533n2f3rpfNFyqu2eJig?e=bS4iVH>`_
+
+----
 
 -----------------
 Files
@@ -61,6 +65,8 @@ These processes are components of the CNV pipeline Subworkflow
 - **processMergeAdj**: Recalculates gene zygosity, summaryMerge table
 - **procesExtra**: Combines plots together
 
+----
+
 --------------------
 Prepare params file
 --------------------
@@ -80,7 +86,7 @@ A custom script generate different types of params file, given the UUID and work
         -w [workflow type] \ 
         -t [tumor purity source] 
 
-.. image:: _img/_img/hrd_generate_params.png
+.. image:: _img/hrd_generate_params.png
     :width: 600px
     :align: center
     :alt: Example of params file generation
@@ -122,6 +128,8 @@ These config in the sub-workflow should be the same as the one found in main-wor
 - **name_revise**: To rename CNV gene for CNV plot 
 - **processExtra_config**: Config to trigger plot merge function 
 - **cnv_container**: Defines the version of CNV image to deploy 
+
+----
 
 --------------------
 Execution
