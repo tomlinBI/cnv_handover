@@ -39,9 +39,9 @@ Files
 
 These refers to the files found in the `actg-workflow` repo
 
-- Subworkflow: ``actg-workflows/sub-workflows/cnvIlmnSubF.nf``
-- Modules: ``actg-workflows/modules/CNVmodules_merged.nf``
-- Configs: ``actg-workflows/configs/hg19/illumina/PA037/sub-workflow/20240902_ABIE-763.json``
+- **Subworkflow**: ``actg-workflows/sub-workflows/cnvIlmnSubF.nf``
+- **Modules**: ``actg-workflows/modules/CNVmodules_merged.nf``
+- **Configs**: ``actg-workflows/configs/hg19/illumina/PA037/sub-workflow/20240902_ABIE-763.json``
 
 
 Processes

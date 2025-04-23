@@ -17,3 +17,4 @@ Contents
    legacy_pipeline
    baselinebuilding
    nf_hrd_cnv
+   drugv6_cnv
