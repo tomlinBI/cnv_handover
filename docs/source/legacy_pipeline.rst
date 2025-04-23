@@ -40,11 +40,11 @@ Bitbucket Repos
 -----------------
 Docker Images
 -----------------
-- `ilmn_cnv <https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general>`_
+- `actgenomics/ilmn_cnv <https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general>`_
 
-- `ldt_torrent_actcnv_onco <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general>`_
+- `actgenomics/ldt_torrent_actcnv_onco <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general>`_
 
-- `ldt_torrent_actcnv_drug <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general>`_
+- `actgenomics/ldt_torrent_actcnv_drug <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general>`_
 
 
 -----------------
