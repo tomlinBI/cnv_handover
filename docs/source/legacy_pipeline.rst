@@ -31,12 +31,12 @@ Bitbucket Repos
 -----------------
 Docker Images
 -----------------
+
 - `actgenomics/ilmn_cnv <https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general>`_
-
 - `actgenomics/ldt_torrent_actcnv_onco <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general>`_
-
 - `actgenomics/ldt_torrent_actcnv_drug <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general>`_
 
+----
 
 -----------------
 Deployment
@@ -90,7 +90,7 @@ Pipeline execution
 
 When container has been deployed, use the following command triggers a job execution.
 
-- Illumina: All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in the respective Lv2 directory
+- **Illumina**: All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in the respective Lv2 directory
 
 .. code-block:: console
 
@@ -103,7 +103,7 @@ When container has been deployed, use the following command triggers a job execu
 
 ----
 
-- Torrent: For Torrent pipelines, if panel ID is not provided, it will be inferred via the all_seq_list
+- **Torrent**: For Torrent pipelines, if panel ID is not provided, it will be inferred via the all_seq_list
 
 .. code-block:: console
     
