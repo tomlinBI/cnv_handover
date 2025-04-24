@@ -13,17 +13,8 @@ Provide a tutorial of how to deploy and troubleshoot during maintenance and test
 Files
 -----------------
 
-- YAML
-
-.. code-block:: console 
-    
-    /mnt/home/tomlin/dockercompose/
-
-- Testing data
-
-.. code-block:: console
-
-    /mnt/BI3/Team_workdir/tom_workdir/Validation_input/
+- YAML: ``/mnt/home/tomlin/dockercompose/``
+- Testing data : ``/mnt/BI3/Team_workdir/tom_workdir/Validation_input/``
 
 
 -----------------
@@ -137,6 +128,18 @@ When container has been deployed, use the following command triggers a job execu
 ----
 
 -----------------
+CICD
+-----------------
+
+Thomas has set up a Jenkins CICD pipeline (`link <https://github.com/ACTGenomics/jenkins-multibranch-demo>`_) to assist pipeline development and deployment.
+Currently, only ACTOnco has implemented this feature.
+
+For information on ACTOnco CICD, refer to Division Meeting (`20250313 slide 70-79 <https://actgenomics.sharepoint.com/:p:/s/ACTGBioInfo-Bioinformatics/EXMRl5L62A5Es_4USP_UMz4Bi5rPSxNj9fxVC6dULMzj5g?e=lXkyBW>`_)
+
+
+----
+
+-----------------
 Troubleshoot
 -----------------
 
@@ -157,11 +160,8 @@ Otherwise add the following to docker-compose
 .. code-block:: YAML
 
     extra_hosts:
-    
       - "actg-sso-back.actgenomics.com=192.168.6.8"
-    
       - "actg-sso.actgenomics.com=192.168.6.8"
-    
       - "lm-back.actgenomics.com=192.168.6.8"
 
 
