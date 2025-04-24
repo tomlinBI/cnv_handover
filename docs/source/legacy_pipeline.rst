@@ -154,6 +154,7 @@ Server needs to contain necessary DNS for API in /etc/hosts
     :align: center
     :alt: output of /etc/hosts
 
+----
 
 Otherwise add the following to docker-compose
 
@@ -182,26 +183,15 @@ Image building
 
 When building Illumina CNV container, it needs to contain an entry point as it works as a component in the entire pipeline.
 
-
-The dockerfile to use when building production container: 
-
-.. code-block:: console
-    
-    illumina_cnv_integration/cnv_df/docker_swarm/Dockerfile
-
+- Building development container: ``illumina_cnv_integration/cnv_df/Dockerfile``
+- Building production container: ``illumina_cnv_integration/cnv_df/docker_swarm/Dockerfile``
+   
 .. image:: _img/build_swarm.png
     :width: 600px
     :align: center
     :alt: Correct startup message for Illumina container
 
 ----
-
-For development and local testing, without crontab entrypoint:
-
-.. code-block:: console
-
-    illumina_cnv_integration/cnv_df/Dockerfile
-
 
 Test new data / Debug sample run
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
