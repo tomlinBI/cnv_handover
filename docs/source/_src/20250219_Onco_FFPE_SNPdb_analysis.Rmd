@@ -1,0 +1,232 @@
+---
+title: "pv6 FFPE SNPdb analysis"
+output: html_document
+date: "2025-02-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(ggpmisc)
+library(tidyverse)
+library(reshape2)
+```
+
+```{r}
+pv5 <- read.delim(file = "Onco2M7pv5_CNV-SNPdatabase-AAS5-23N-0.16-Onco2M7pv5ANX_v20241028_ampliconid_modified_removeNA_resueSNP_Tom.txt")
+pv6 <- read.delim(file = "Onco2M7pv6_CNV-SNPdatabase-FFPE-AAS5-20N-0.1-Onco2M7pv6_v20250219_norep.txt")
+
+pv5
+pv6
+
+genetag <- read.delim(file = "genetag_v20250113.txt", skip = 2)
+genetag
+
+colnames(genetag)[1] <- "Gene_name"
+colnames(genetag)
+```
+
+```{r}
+# Calculate total Gain/Loss in SNP
+
+pv5genes <- pv5$Gene_name %>% unique
+
+pv5count <- pv5 %>% group_by(Gene_name) %>% summarise(pv5_SNP_per_gene = n())
+pv6count <- pv6 %>% group_by(Gene_name) %>% summarise(pv6_SNP_per_gene = n())
+
+count_merge <- full_join(pv5count, pv6count, by = 'Gene_name') %>% 
+  replace_na(list(pv5_SNP_per_gene=0, pv6_SNP_per_gene=0))
+count_merge$GainLoss <- ifelse(count_merge$pv6_SNP_per_gene - count_merge$pv5_SNP_per_gene > 0, "Gain",
+                               ifelse(count_merge$pv6_SNP_per_gene - count_merge$pv5_SNP_per_gene < 0, "Loss", "None"))
+
+count_merge %>% group_by(GainLoss) %>% summarise(count=n())
+
+```
+
+```{r}
+# Count Gain/Loss overlapped with genetag
+genetag_merge <- left_join(genetag, pv5count, by = 'Gene_name') %>% replace_na(list(pv5_SNP_per_gene = 0))
+genetag_merge <- left_join(genetag_merge, pv6count, by = 'Gene_name') %>% replace_na(list(pv6_SNP_per_gene = 0))
+genetag_merge$SNP_diff <- genetag_merge$pv6_SNP_per_gene - genetag_merge$pv5_SNP_per_gene
+genetag_merge$GainLoss <- ifelse(genetag_merge$SNP_diff > 0, "Gain", ifelse(genetag_merge$SNP_diff < 0, "Loss", "None"))
+
+genetag_merge %>% group_by(GainLoss) %>% summarise(count=n())
+
+# Count Gain/loss in loss* assoicated only
+genetag_merge <- genetag_merge[grep("loss|Loss",genetag_merge$gene_tag),]
+genetag_merge %>% group_by(GainLoss) %>% summarise(count=n())
+
+
+genetag_merge_loss_diff <- genetag_merge %>% subset.data.frame(SNP_diff < 0)
+
+genetag_merge_loss_diff$name <- paste0(genetag_merge_loss_diff$Gene_name," (",genetag_merge_loss_diff$pv5_SNP_per_gene,"|",genetag_merge_loss_diff$pv6_SNP_per_gene,")")
+
+ggplot(genetag_merge_loss_diff, aes(x=name, y=SNP_diff)) + 
+  geom_col() +
+  theme_bw() +
+  coord_flip() +
+  facet_wrap(~gene_tag, scales='free')
+  
+ggsave(filename = "FFPE_SNP_pv5-pv6.png", width = 10, height = 7)
+```
+
+
+```{r}
+#Overlap between variants
+
+setdiff(pv5$variant_id, pv6$variant_id) %>% length()
+setdiff(pv6$variant_id, pv5$variant_id) %>% length()
+intersect(pv5$variant_id, pv6$variant_id) %>% length()
+
+dim(pv5)
+151+2441
+dim(pv6)
+
+```
+
+
+# PBMC
+```{r}
+pv5 <- read.delim(file = "ONCO2M7_PBMC_SNP_AF.4_.6_db.txt")
+pv6 <- read.delim(file = "Onco2M7pv6_CNV-SNPdatabase-PBMC-AAS5-20N-0.1-Onco2M7pv6_v20250220_norep.txt")
+
+pv5
+pv6
+
+genetag <- read.delim(file = "genetag_v20250113.txt", skip = 2)
+genetag
+
+colnames(genetag)[1] <- "Gene_name"
+colnames(genetag)
+```
+
+```{r}
+# Calculate total Gain/Loss in SNP
+
+pv5genes <- pv5$Gene_name %>% unique
+
+pv5count <- pv5 %>% group_by(Gene_name) %>% summarise(pv5_SNP_per_gene = n())
+pv6count <- pv6 %>% group_by(Gene_name) %>% summarise(pv6_SNP_per_gene = n())
+
+count_merge <- full_join(pv5count, pv6count, by = 'Gene_name') %>% 
+  replace_na(list(pv5_SNP_per_gene=0, pv6_SNP_per_gene=0))
+count_merge$GainLoss <- ifelse(count_merge$pv6_SNP_per_gene - count_merge$pv5_SNP_per_gene > 0, "Gain",
+                               ifelse(count_merge$pv6_SNP_per_gene - count_merge$pv5_SNP_per_gene < 0, "Loss", "None"))
+
+count_merge %>% group_by(GainLoss) %>% summarise(count=n())
+```
+
+```{r}
+# Count Gain/Loss overlapped with genetag
+genetag_merge <- left_join(genetag, pv5count, by = 'Gene_name') %>% replace_na(list(pv5_SNP_per_gene = 0))
+genetag_merge <- left_join(genetag_merge, pv6count, by = 'Gene_name') %>% replace_na(list(pv6_SNP_per_gene = 0))
+genetag_merge$SNP_diff <- genetag_merge$pv6_SNP_per_gene - genetag_merge$pv5_SNP_per_gene
+genetag_merge$GainLoss <- ifelse(genetag_merge$SNP_diff > 0, "Gain", ifelse(genetag_merge$SNP_diff < 0, "Loss", "None"))
+
+genetag_merge %>% group_by(GainLoss) %>% summarise(count=n())
+
+# Count Gain/loss in loss* assoicated only
+genetag_merge <- genetag_merge[grep("loss|Loss",genetag_merge$gene_tag),]
+genetag_merge %>% group_by(GainLoss) %>% summarise(count=n())
+
+
+genetag_merge_loss_diff <- genetag_merge %>% subset.data.frame(SNP_diff < 0)
+
+genetag_merge_loss_diff$name <- paste0(genetag_merge_loss_diff$Gene_name," (",genetag_merge_loss_diff$pv5_SNP_per_gene,"|",genetag_merge_loss_diff$pv6_SNP_per_gene,")")
+
+ggplot(genetag_merge_loss_diff, aes(x=name, y=SNP_diff)) + 
+  geom_col() +
+  theme_bw() +
+  coord_flip() +
+  facet_wrap(~gene_tag, scales='free')
+  
+ggsave(filename = "PBMC_SNP_pv5-pv6_n1.png", width = 10, height = 10)
+```
+
+
+```{r}
+#Overlap between variants
+pv5 <- read.delim(file = "ONCO2M7_PBMC_SNP_AF.4_.6_db.txt")
+pv6 <- read.delim(file = "Onco2M7pv6_CNV-SNPdatabase-PBMC-AAS5-20N-0.1-Onco2M7pv6ANX_v20250218_norep.txt")
+
+a<-setdiff(pv5$variant_id, pv6$variant_id) %>% length()
+b<-setdiff(pv6$variant_id, pv5$variant_id) %>% length()
+c<-intersect(pv5$variant_id, pv6$variant_id) %>% length()
+d<-union(pv5$variant_id, pv6$variant_id) %>% length()
+
+cat(a, round(a/d,3) * 100)
+cat(b, round(b/d,3) * 100)
+cat(c, round(c/d,3) * 100)
+
+dim(pv5)
+dim(pv6)
+
+
+#Overlap between variants
+pv5 <- read.delim(file = "ONCO2M7_PBMC_SNP_AF.4_.6_db.txt")
+pv6 <- read.delim(file = "Onco2M7pv6_CNV-SNPdatabase-PBMC-AAS5-20N-0.1-Onco2M7pv6_v20250219_norep.txt")
+
+a<-setdiff(pv5$variant_id, pv6$variant_id) %>% length()
+b<-setdiff(pv6$variant_id, pv5$variant_id) %>% length()
+c<-intersect(pv5$variant_id, pv6$variant_id) %>% length()
+d<-union(pv5$variant_id, pv6$variant_id) %>% length()
+
+cat(a, round(a/d,3) * 100)
+cat(b, round(b/d,3) * 100)
+cat(c, round(c/d,3) * 100)
+
+
+
+#Overlap between variants
+pv5 <- read.delim(file = "ONCO2M7_PBMC_SNP_AF.4_.6_db.txt")
+pv6 <- read.delim(file = "Onco2M7pv6_CNV-SNPdatabase-PBMC-AAS5-20N-0.1-Onco2M7pv6_v20250220_norep.txt")
+
+a<-setdiff(pv5$variant_id, pv6$variant_id) %>% length()
+b<-setdiff(pv6$variant_id, pv5$variant_id) %>% length()
+c<-intersect(pv5$variant_id, pv6$variant_id) %>% length()
+d<-union(pv5$variant_id, pv6$variant_id) %>% length()
+
+cat(a, round(a/d,3) * 100)
+cat(b, round(b/d,3) * 100)
+cat(c, round(c/d,3) * 100)
+
+```
+
+```{r}
+fgf3 <- read.table("../FFE_FGF3.txt", header=TRUE)
+
+fgf3_stats <- fgf3 %>% group_by(AmpliconID) %>% summarise(mean = mean(NormalisedCoverage), sd = sd(NormalisedCoverage))
+fgf3_stats$cv <- fgf3_stats$sd / fgf3_stats$mean
+fgf3_stats$pass <- ifelse(fgf3_stats$cv < 0.55, "PASS","Remove")
+fgf3_stats
+
+passlist <- c("GENEID_FGF3_Pool_3_ID_AMPL7154842661","GENEID_FGF3_Pool_4_ID_AMPL7153510329",
+              "GENEID_FGF3_Pool_2_ID_AMPL7154842663","GENEID_FGF3_Pool_3_ID_AMPL7154103344",
+              "GENEID_FGF3_Pool_4_ID_AMPL7156807958","GENEID_FGF3_Pool_1_ID_AMPL7154842657")
+fgf3$PASS <- ifelse(fgf3$AmpliconID %in% passlist, "PASS","Remove")
+
+fgf3_merge <- full_join(fgf3, fgf3_stats, by="AmpliconID")
+
+ggplot(fgf3, aes(x=AmpliconID, y=NormalisedCoverage, fill=PASS)) + theme_bw() +
+  geom_boxplot() +
+  geom_point() +
+  #geom_boxplot(data=fgf3_merge, aes(x=AmpliconID, y=mean), color="black") +
+  #geom_boxplot(data=fgf3_merge, aes(x=AmpliconID, y=mean+sd), color="blue") +
+  #geom_boxplot(data=fgf3_merge, aes(x=AmpliconID, y=mean-sd), color="blue") +
+  coord_flip()
+
+ggplot(fgf3, aes(x=AmpliconID, y=fgf3_merge$cv, colour=PASS)) + 
+  geom_point() + 
+  theme_bw() + 
+  coord_flip() + ylab("CV")
+
+ggplot(fgf3, aes(x=AmpliconID, y=fgf3_merge$mean, colour=PASS)) + 
+  geom_point() + 
+  theme_bw() + 
+  coord_flip() + ylab("Mean")
+
+```
+
