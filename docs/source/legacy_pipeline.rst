@@ -13,17 +13,8 @@ Provide a tutorial of how to deploy and troubleshoot during maintenance and test
 Files
 -----------------
 
-- YAML
-
-.. code-block:: console 
-    
-    /mnt/home/tomlin/dockercompose/
-
-- Testing data
-
-.. code-block:: console
-
-    /mnt/BI3/Team_workdir/tom_workdir/Validation_input/
+- YAML: ``/mnt/home/tomlin/dockercompose/``
+- Testing data : ``/mnt/BI3/Team_workdir/tom_workdir/Validation_input/``
 
 
 -----------------
@@ -40,12 +31,12 @@ Bitbucket Repos
 -----------------
 Docker Images
 -----------------
+
 - `actgenomics/ilmn_cnv <https://hub.docker.com/repository/docker/actgenomics/ilmn_cnv/general>`_
-
 - `actgenomics/ldt_torrent_actcnv_onco <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_onco/general>`_
-
 - `actgenomics/ldt_torrent_actcnv_drug <https://hub.docker.com/repository/docker/actgenomics/ldt_torrent_actcnv_drug/general>`_
 
+----
 
 -----------------
 Deployment
@@ -99,7 +90,7 @@ Pipeline execution
 
 When container has been deployed, use the following command triggers a job execution.
 
-- Illumina: All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in the respective Lv2 directory
+- **Illumina**: All four biomarker (ArmCNV, CNV, LGR, LOH) should trigger. Data will output in the respective Lv2 directory
 
 .. code-block:: console
 
@@ -112,7 +103,7 @@ When container has been deployed, use the following command triggers a job execu
 
 ----
 
-- Torrent: For Torrent pipelines, if panel ID is not provided, it will be inferred via the all_seq_list
+- **Torrent**: For Torrent pipelines, if panel ID is not provided, it will be inferred via the all_seq_list
 
 .. code-block:: console
     
@@ -137,6 +128,18 @@ When container has been deployed, use the following command triggers a job execu
 ----
 
 -----------------
+CICD
+-----------------
+
+Thomas has set up a Jenkins CICD pipeline (`link <https://github.com/ACTGenomics/jenkins-multibranch-demo>`_) to assist pipeline development and deployment.
+Currently, only ACTOnco has implemented this feature.
+
+For information on ACTOnco CICD, refer to Division Meeting (`20250313 slide 70-79 <https://actgenomics.sharepoint.com/:p:/s/ACTGBioInfo-Bioinformatics/EXMRl5L62A5Es_4USP_UMz4Bi5rPSxNj9fxVC6dULMzj5g?e=lXkyBW>`_)
+
+
+----
+
+-----------------
 Troubleshoot
 -----------------
 
@@ -151,17 +154,15 @@ Server needs to contain necessary DNS for API in /etc/hosts
     :align: center
     :alt: output of /etc/hosts
 
+----
 
 Otherwise add the following to docker-compose
 
 .. code-block:: YAML
 
     extra_hosts:
-    
       - "actg-sso-back.actgenomics.com=192.168.6.8"
-    
       - "actg-sso.actgenomics.com=192.168.6.8"
-    
       - "lm-back.actgenomics.com=192.168.6.8"
 
 
@@ -182,26 +183,15 @@ Image building
 
 When building Illumina CNV container, it needs to contain an entry point as it works as a component in the entire pipeline.
 
-
-The dockerfile to use when building production container: 
-
-.. code-block:: console
-    
-    illumina_cnv_integration/cnv_df/docker_swarm/Dockerfile
-
+- Building development container: ``illumina_cnv_integration/cnv_df/Dockerfile``
+- Building production container: ``illumina_cnv_integration/cnv_df/docker_swarm/Dockerfile``
+   
 .. image:: _img/build_swarm.png
     :width: 600px
     :align: center
     :alt: Correct startup message for Illumina container
 
 ----
-
-For development and local testing, without crontab entrypoint:
-
-.. code-block:: console
-
-    illumina_cnv_integration/cnv_df/Dockerfile
-
 
 Test new data / Debug sample run
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
