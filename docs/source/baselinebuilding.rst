@@ -329,8 +329,7 @@ Evaluate Baseline
 5. After normal samples and baseline are confirmed, build SNP database
 6. Evaluate baseline using RM or previously sequenced clinical samples.
 7. Pipeline performance can be evaluated using `SiaoYu's drylab-validation scripts <https://github.com/ACTGenomics/actg-drylab-validation>`_
-
-
+8. `RMarkdown for SNP analysis <https://github.com/tomlinBI/cnv_handover/blob/master/docs/source/_src/20250219_Onco_FFPE_SNPdb_analysis.Rmd>`_
 
 ----
 
