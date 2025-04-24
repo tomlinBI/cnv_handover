@@ -96,6 +96,7 @@ When container has been deployed, use the following command triggers a job execu
 
     python3 /tools/cnv_app/cnv_pipeline/cnv_pipeline.py -i [RunBarcode] --panel [panelID]
 
+
 .. image:: _img/run_ilmn.png
     :width: 600px
     :align: center
@@ -108,6 +109,10 @@ When container has been deployed, use the following command triggers a job execu
 .. code-block:: console
     
     python /home/CNV/script/ACTOnco_CNV_Onco2M7.py -i [RunBarcode] -b FFPE -p Onco2M7pv6
+    
+    # to recreate production environment with known seed, obtained seed from Lv2 folder
+    seed="1695009019,1695009029,1695009043,1695009053,1695009064,1695009074,1695009088,1695009097"
+    python /home/CNV/ACTOnco_CNV_Onco2M7.py -i [Run Barcode] -b [FFPE/PBMC] -p [panelID] --seed $seed
 
 .. image:: _img/run_onco.png
     :width: 600px
@@ -211,7 +216,7 @@ Use custom script to generate mock folder. This directory will contain a physica
 
 .. code-block:: console
 
-    python3 /mnt/home/tomlin/dev_script/file_files.py \
+    python3 /mnt/home/tomlin/dev_script/find_files.py \
         -f1 [Lv1 DIR] \
         -f2 [Lv2 DIR] \
         -i [File containing list of UUIDs] \
